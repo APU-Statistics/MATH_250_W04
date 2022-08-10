@@ -1,0 +1,81 @@
+---
+title: "Hotel bookings - data wrangling"
+subtitle: "due Thursday, September 15 at 4:20pm"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    number_section: false
+    highlight: tango
+    theme: "cosmo"
+link-citations: yes
+editor: visual
+editor_options: 
+  markdown: 
+    wrap: sentence
+---
+
+We will again work with data from the `nycflights13` package.
+
+```{r, message = FALSE, warning = FALSE}
+library(nycflights13)
+library(tidyverse)
+```
+
+
+## Exercise 1
+
+Examine the documentation for the datasets `airports`, `flights`, and `planes`. How are these datasets related? 
+
+> YOUR ANSWER HERE
+
+Suppose you wanted to make a map of the route of every flight. What variables would you need from which datasets? You need the geographic location of the airports (from `airports`) and the path of flights (i.e., which airports were involved) from `flights`.
+
+We want to join flights to airports. Note these two datasets have no variables in common so we will have to specify the variable to join by using by =. Check out the documentation for more information.
+
+```{r}
+flights %>% 
+  left_join(airports, by = c("dest" = "faa"))
+```
+
+
+## Exercise 2
+
+Create a new dataset `dest_delays` with the median arrival delay for each destination. Note this question does not require you to use joins.
+
+## Exercise 3
+
+Create a new dataset by joining `dest_delays` and `airports`. Only include observations that have both delay and airport information. Note `dest_delays` and `flights` have no variables in common so you will need to specify the variables to join using by as in the example above.
+
+## Exercise 4
+
+Are all of the rows in `dest_delays` included in the new dataset you created by joining `dest_delays` and `airports`? Use an `anti_join` to help investigate this issue. Recall `anti_join(x,y)` returns all rows from `x` without a match in `y`.
+
+```{r}
+
+```
+
+Google to see where the above airports are located.
+
+## Exercise 5
+
+Is there a relationship between the age of a plane and its delays? The plane tail number is given in the `tailnum` variable in the `flights` dataset. The year the plane was manufactured is given in the `year` variable in the `planes` dataset.
+
+Start by finding the average arrival delay for each plane and store the resulting dataset in `plane_delays`.
+
+```{r}
+
+```
+
+Join `plane_delays` to the planes data using an appropriate join and then use `mutate` to create an `age` variable. Note this data is from 2013.
+
+```{r}
+
+```
+
+Finally, create an effective visualization of the data to investigate if there a relationship between the age of a plane and its delays. 
+
+```{r}
+
+```
+
